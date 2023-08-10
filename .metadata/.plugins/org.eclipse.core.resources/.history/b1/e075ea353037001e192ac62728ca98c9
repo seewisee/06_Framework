@@ -1,0 +1,8 @@
+package edu.kh.project.member.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller // 요청/응답 클래스 + bean 등록(Spring이 관리하는 객체)
+public class MemberController {
+
+}
