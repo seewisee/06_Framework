@@ -258,7 +258,7 @@ public class MemberController {
 			 *  
 			 *  응답 중 : session scope로 잠시 이동
 			 *  
-			 *  응답 후 : request scope 복귀
+			 *  응답 후 : request scope 복귀                                    
 			 * */
 			
 			// addFlashAttribute : 잠시 Session에 추가
@@ -310,9 +310,9 @@ public class MemberController {
 	// 현재 클래스에서 발생하는 모든 예외를 모아서 처리
 	//@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e, Model model){
-		
+				
 		// Exception e : 예외 정보를 담고 있는 객체
-		// Model model : 데이터 전달용 객체 (request scope 가 기본)
+		// Model model : 데이터 전달용 객체 (request scope가 기본)
 		
 		e.printStackTrace(); // 예외 내용/발생 메소드 확인
 		
