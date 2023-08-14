@@ -94,8 +94,6 @@ public class myPageController {
 		return "redirect:info"; // 상대경로 (/myPage/info GET 방식)
 	}
 	
-	
-	
-	
+
 	
 }
