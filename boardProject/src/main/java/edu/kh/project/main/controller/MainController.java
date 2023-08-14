@@ -27,6 +27,7 @@ public class MainController{
 	public String mainForward() {
 		// main.jsp로 화면 전환
 		
+		
 //		<beans:property name="prefix" value="/WEB-INF/views/" />
 //		<beans:property name="suffix" value=".jsp" />
 		

@@ -49,7 +49,7 @@
       - parameterMap : (사용 안함)
       
       - resultType : select 결과를 담아서 반환할 자료형
-                  단, DTO를 작성할 경우 필드명 = 컬럼명 인 경우만 가능
+                  단, DTO를 작성할 경우 필드명 = 컬럼명인 경우만 가능
                                  memberNo  MEMBER_NO 
       
       - resultMap :  select 결과의 컬럼명과
@@ -85,6 +85,27 @@
       WHERE MEMBER_DEL_FL = 'N'
       AND MEMBER_EMAIL = #{memberEmail}
    </select>
+   
+   
+   <!--
+   		insert, update, delete와 같은 DML 구문은
+   		수행결과가 항상 성공한 행의 개수(int 자료형)으로 고정
+   		->	resultType을 작성하지 않는다! (항상 int)
+     -->
+   
+   
+   <!-- 회원가입 -->	<!-- mybatis-config.xml에 지정된 별칭  -->
+   <insert id="signUp" parameterType="Member">
+	INSERT INTO "MEMBER"
+	VALUES(SEQ_MEMBER_NO.NEXTVAL
+	, #{memberEmail}
+	, #{memberPw}
+	, #{memberNickname}
+	, #{memberTel}
+	, #{memberAddress}
+	,  NULL, DEFAULT, DEFAULT, DEFAULT)
+   
+   </insert>
    
    
    

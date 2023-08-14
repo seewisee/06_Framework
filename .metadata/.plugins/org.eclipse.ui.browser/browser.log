@@ -14,3 +14,7 @@
 8월 11, 2023 14:20:26.342 [11192:7744:0811/142026.342:ERROR:feature_processor_state.cc(39)] Processing error occured: model WebAppInstallationPromo failed with UkmEngineDisabled, message: 
 8월 11, 2023 15:10:44.318 [2036:11948:0811/151044.318:ERROR:feature_processor_state.cc(39)] Processing error occured: model WebAppInstallationPromo failed with UkmEngineDisabled, message: 
 8월 11, 2023 15:20:30.450 [15864:7128:0811/152030.450:ERROR:feature_processor_state.cc(39)] Processing error occured: model WebAppInstallationPromo failed with UkmEngineDisabled, message: 
+
+8월 14, 2023 15:06:09.814 NEW SESSION
+8월 14, 2023 15:06:09.815 [9444:3608:0814/150609.812:ERROR:interface_endpoint_client.cc(702)] Message 0 rejected by interface blink.mojom.WidgetHost
+8월 14, 2023 15:06:16.416 [9444:3608:0814/150616.415:ERROR:device_event_log_impl.cc(222)] [15:06:16.415] Bluetooth: bluetooth_adapter_winrt.cc:1058 Getting Default Adapter failed.
