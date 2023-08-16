@@ -20,6 +20,44 @@ public class myPageDAO {
 		return sqlSession.update("myPageMapper.updateInfo", updateMember);
 		
 	}
+
+	/** 회원의 비밀번호 조회
+	 * @param memberNo
+	 * @return
+	 */
+	public String selectEncPw(int memberNo) {
+		
+		
+		return sqlSession.selectOne("myPageMapper.selectEncPw", memberNo);
+	}
+
+	/** 비밀번호 변경
+	 * @param newPw
+	 * @param memberNo
+	 * @return
+	 */
+	public int changePw(String newPw, int memberNo) {
+		// Mybatis에서 sql 수행 시
+		// 전달할 수 있는 파라미터는 딱 하나!
+		// -> 여러 파라미터를 전달해야하는 경우
+		//		map 또는 dto로 묶어서 전달
+		
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		member.setMemberPw(newPw);
+		
+		
+		return sqlSession.update("myPageMapper.changePw", member);
+	}
+
+	/** 회원 탈퇴 
+	 * @param memberNo
+	 * @return
+	 */
+	public int secession(int memberNo) {
+		// sqlSessionTemplate : 마이바티스 + DBCP + close 자동 + 트랜잭션처리
+		return sqlSession.update("myPageMapper.secession", memberNo);
+	}
 	
 	
 	

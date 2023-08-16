@@ -1,6 +1,7 @@
 package edu.kh.project.myPage.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,9 @@ public class myPageServiceImpl implements myPageService {
 
 	@Autowired // 의존성 주입(DI)
 	private myPageDAO dao;
+	
+	@Autowired // BCryptPasswordEncoder 의존성 주입(DI)
+	private BCryptPasswordEncoder bcrypt;
 
 	// 스프링에서는 트랜잭션을 처리할 방법을 지원해줌.(코드기반, 선언적)
 	// 1) <tx:advice> -> AOP를 이용한 방식(XML에 작성)
@@ -25,11 +29,50 @@ public class myPageServiceImpl implements myPageService {
 	// RuntimeException 외 다른 Exception(대표적으로 SQLException 등)에도 트랜잭션 롤백처리를 적용하고 싶으면
 	// @Transactional의 rollbackFor 속성을 활용하면 된다
 
+	
+	// 회원정보 수정 서비스
 	@Transactional(rollbackFor = { Exception.class })
 	@Override
 	public int updateInfo(Member updateMember) {
 
 		return dao.updateInfo(updateMember);
+	}
+
+	// 비밀번호 변경 서비스
+	// @Transactional // UnChecked Exception  발생 시 rollback
+	@Transactional(rollbackFor = Exception.class)
+	// 모든 Exception 발생 시 예외 처리
+	@Override
+	public int changePw(String currentPw, String newPw, int memberNo) {
+		
+		// 1. 현재 비밀번호, DB에 저장된 비밀번호 비교
+		// 1) 회원번호가 일치하는 member 테이블의 행의 member_pw 조회
+		String encPw = dao.selectEncPw(memberNo);
+		
+		// 2) bcrypt.matches(평문, 암호문( -> 같으면 true -> 이 때 비번 수정
+		if(bcrypt.matches(currentPw, encPw)) {
+			// 2. 비밀번호 변경( update dao 호출) -> 결과 반환
+			return dao.changePw(bcrypt.encode(newPw), memberNo);
+			
+		}
+		
+		
+		// 3) 비밀번호가 일치하지 않으면 0 반환
+		
+		return 0;
+	}
+
+	// 회원 탈퇴 서비스
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int secession(int memberNo, String memberPw) {
+		String encPw = dao.selectEncPw(memberNo);
+		
+		if(bcrypt.matches(memberPw, encPw)) {
+			return dao.secession(memberNo);
+			
+		}
+		return 0;
 	}
 
 }
