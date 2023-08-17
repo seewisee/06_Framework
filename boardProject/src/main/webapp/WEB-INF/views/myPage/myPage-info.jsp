@@ -34,16 +34,16 @@
                     action에 작성된 경로 추가
                  --%>
                  <%-- 상대경로 --%>
-                <form action="info" method="POST" name="myPageFrm">
+                <form action="info" method="POST" name="myPageFrm" id = "updateInfo">
 
                     <div class="myPage-row">
                         <label>닉네임</label>
-                        <input type="text" name="memberNickname"  maxlength="10" value = "${loginMember.memberNickname}" >
+                        <input type="text" name="memberNickname"  maxlength="10" value = "${loginMember.memberNickname}" id = "memberNickname">
                     </div>
 
                     <div class="myPage-row">
                         <label>전화번호</label>
-                        <input type="text" name="memberTel"  maxlength="11" value = "${loginMember.memberTel}">
+                        <input type="text" name="memberTel"  maxlength="11" value = "${loginMember.memberTel}" id ="memberTel">
                     </div>
 
                     <div class="myPage-row info-title">
@@ -72,7 +72,7 @@
                         <input type="text" name="memberAddress"  placeholder="상세 주소" value = "${addr[2]}" id ="sample6_detailAddress">                
                     </div>
 
-                    <button class="myPage-submit">수정하기</button>
+                    <button class="myPage-submit" id = "update">수정하기</button>
                 </form>
 
             </section>
@@ -112,6 +112,7 @@
     }
 </script>
 
+<script src = "/resources/js/myPage/myPage.js"></script>
 
 
 </body>

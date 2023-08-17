@@ -161,7 +161,7 @@ public class myPageController {
 			
 			status.setComplete();
 			
-			Cookie cookie = new Cookie("saveId", "")
+			Cookie cookie = new Cookie("saveId", "");
 					cookie.setMaxAge(0); // 0초 생존 -> 삭제
 			cookie.setPath("/"); // 요청시 쿠키가 첨부되는 경로
 			resp.addCookie(cookie); // 요청 객체를 통해서 클라이언트에게 전달
