@@ -20,6 +20,7 @@
 		<param-value>
 		classpath:spring/root-context.xml
 		classpath:spring/spring-security.xml
+		classpath:spring/email-context.xml
 		</param-value>
 	</context-param>
 
@@ -31,7 +32,7 @@
 
 	<!-- Processes application requests -->
 	
-	<!--  
+	<!--
 	DispatcherServlet(Spring에서 제공) 객체 생성 시
 	servelt-context.xml 파일을 이용해서 만든다
 	-->
