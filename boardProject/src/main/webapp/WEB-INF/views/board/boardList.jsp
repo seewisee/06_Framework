@@ -5,13 +5,12 @@
 <c:set var="pagination" value="${map.pagination}" />
 <c:set var="boardList" value="${map.boardList}" />
 
-
-<c:set var="boardName" value="${boardTypeList[boardCode-1].BOARD_NAME}" />
+<c:set var="boardName" value="${boardTypeList[boardCode-1].BOARD_NAME}"/>
 
 <c:forEach items="${boardTypeList}" var="boardType">
-<c:if test="${boardType.BOARD_CODE == boardCode}" >
-<c:set var="boardName"  value="${boardType.BOARD_NAME}"/>
-</c:if>
+    <c:if test="${boardType.BOARD_CODE == boardCode}" >
+        <c:set var="boardName" value="${boardType.BOARD_NAME}"/>
+    </c:if>
 </c:forEach>
 
 <!DOCTYPE html>
@@ -20,7 +19,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${boardName}</title>
+    <title>게시판 이름</title>
 
     <link rel="stylesheet" href="/resources/css/board/boardList-style.css">
 
@@ -70,9 +69,9 @@
                                             <c:if test="${! empty board.thumbnail}" >
                                                 <img class="list-thumbnail" src="${board.thumbnail}">
                                             </c:if>
-
+                                            <%-- ${boardCode} : @Pathvariable로 request scope에 추가된 값 --%>
                                             <a href="/board/${boardCode}/${board.boardNo}?cp=${pagination.currentPage}">${board.boardTitle}</a>   
-                                            ${board.commentCount}                        
+                                            [${board.commentCount}]                        
                                         </td>
                                         <td>${board.memberNickname}</td>
                                         <td>${board.boardCreateDate}</td>
@@ -141,7 +140,7 @@
                 <select name="key" id="searchKey">
                     <option value="t">제목</option>
                     <option value="c">내용</option>
-                    <option value="tc">제목+내용</tion>
+                    <option value="tc">제목+내용</option>
                     <option value="w">작성자</option>
                 </select>
 

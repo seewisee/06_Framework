@@ -1,5 +1,6 @@
 package edu.kh.project.board.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.method.annotation.RedirectAttributesMethodArgumentResolver;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.board.model.dto.Board;
 import edu.kh.project.board.model.service.Boardservice;
+import edu.kh.project.member.model.dto.Member;
 
 @Controller
 @RequestMapping("/board")
@@ -73,6 +78,65 @@ public class BoardController {
 		return "board/boardList";
 		
 	}
+	
+	// @PathVariable : 주소에 지정된 부분을 변수에 저장
+	//					+ request scope 세팅
+	
+	// 게시글 상세 조회
+	@GetMapping("/{boardCode}/{boardNo}")
+	public String boardDetail(@PathVariable("boardCode")int boardCode
+							, @PathVariable("boardNo")int boardNo
+							, Model model /* 데이터 전달용 객체 */
+							, RedirectAttributes ra
+							, @SessionAttribute(value = "loginMember", required = false)Member loginMember){ // 리다이렉트시 데이터 전달용 객체
+					// 세션에서 loginMember를 얻어오는데 없으면 null, 있으면 회원정보 저장
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardCode", boardCode);
+		map.put("boardNo", boardNo);
+		
+		
+		// 게시글 상세 조회 서비스 호출
+		Board board = service.selectBoard(map);
+		
+		String path = null;
+		System.out.println(board);
+		if(board != null) { // 조회결과가 있을 경우
+			
+			//-------------------------------------------------------
+			// 현재 로그인 상태인 경우
+			// 로그인한 회원이 해당 게시글에 좋아요를 눌렀는지 확인
+			
+			if(loginMember != null) { // 로그인 상태인 경우
+				// 회원 번호를 map 추가	
+				// map(boardCode, board_no, memberNo)	
+				map.put("memberNo", loginMember.getMemberNo());
+				
+				// 좋아요 여부 확인 서비스 호출
+				int result = service.boardLikeCheck(map);
+				
+				// 누른 적이 있을 경우
+				if(result > 0) model.addAttribute("likeCheck", "on");
+			}
+			//-------------------------------------------------------
+			
+			
+			
+			
+			path = "board/boardDetail";
+			model.addAttribute("board", board);
+			
+		}else { // 조회결과가 없을 경우
+			path = "redirect:/board/" + boardCode;
+			ra.addFlashAttribute("message", "해당 게시글이 존재하지 않습니다.");
+		}
+		return path;
+	}
+	
+	
+	
+	
 	
 	
 	
