@@ -130,7 +130,7 @@
                         <article class="login-area">
 
                             <a href="/myPage/profile">
-                                <img src="/resources/images/user.png" id="memberProfile">
+                                <img src="${loginMember.profileImage}" id="memberProfile">
                             </a>
 
                             <div class="my-info">
