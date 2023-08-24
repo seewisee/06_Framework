@@ -3,6 +3,7 @@ package edu.kh.project.myPage.model.service;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -60,7 +61,6 @@ public class myPageServiceImpl implements myPageService {
 			return dao.changePw(bcrypt.encode(newPw), memberNo);
 			
 		}
-		
 		
 		// 3) 비밀번호가 일치하지 않으면 0 반환
 		
@@ -131,9 +131,11 @@ public class myPageServiceImpl implements myPageService {
 
 	// 파일명 변경 메소드
 	public static String fileRename(String originFileName) {
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		
 		String date = sdf.format(new java.util.Date(System.currentTimeMillis()));
-
+		
 		int ranNum = (int) (Math.random() * 100000); // 5자리 랜덤 숫자 생성
 
 		String str = "_" + String.format("%05d", ranNum);
