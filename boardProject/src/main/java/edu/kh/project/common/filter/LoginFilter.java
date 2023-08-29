@@ -23,7 +23,7 @@ import edu.kh.project.member.model.dto.Member;
 
 
 @WebFilter(filterName="loginFilter",
-         urlPatterns = {"/myPage/*"})
+         urlPatterns = {"/myPage/*", "/board2/*"})
 public class LoginFilter implements Filter {
 
 
