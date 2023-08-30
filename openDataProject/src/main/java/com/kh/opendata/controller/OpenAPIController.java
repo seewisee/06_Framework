@@ -1,6 +1,7 @@
 package com.kh.opendata.controller;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -94,7 +95,7 @@ public class OpenAPIController {
 	
 	
 	// xml 형식으로 지진 해일 대피소 OpenApi 활용하기
-	@RequestMapping( value = "shelter", produces = "text/xml; charset=UTF-8")
+	//@RequestMapping( value = "shelter", produces = "text/xml; charset=UTF-8")
 	@ResponseBody
 	public String shelterList() throws IOException {
 		
@@ -126,6 +127,36 @@ public class OpenAPIController {
 
 		
 		return responseText;
+	}
+	
+	@ResponseBody
+	public String trip() throws IOException {
+		String url = "http://apis.data.go.kr/1741000/TsunamiShelter3/getTsunamiShelter1List";
+		
+		url += "?serviceKey=" + SERVICEKEY;
+		url += "&pageNo=1"; 
+		url += "&type=xml"; // 리턴 타입
+		url += "&numOfRows=20"; // 결과 개수
+		
+		URL requestUrl = new URL(url);
+		
+		HttpURLConnection urlConn = (HttpURLConnection)requestUrl.openConnection();
+		
+		urlConn.setRequestMethod("GET");
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+		
+		String line;
+		String requestText = "";
+		
+		while((line=br.readLine()) != null) {
+			requestText += line;
+		}
+
+		br.close();
+		urlConn.disconnect();
+		
+		return requestText;
 	}
 	
 	
