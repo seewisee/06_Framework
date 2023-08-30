@@ -129,37 +129,7 @@ public class OpenAPIController {
 		return responseText;
 	}
 	
-	@ResponseBody
-	public String trip() throws IOException {
-		String url = "http://apis.data.go.kr/1741000/TsunamiShelter3/getTsunamiShelter1List";
-		
-		url += "?serviceKey=" + SERVICEKEY;
-		url += "&pageNo=1"; 
-		url += "&type=xml"; // 리턴 타입
-		url += "&numOfRows=20"; // 결과 개수
-		
-		URL requestUrl = new URL(url);
-		
-		HttpURLConnection urlConn = (HttpURLConnection)requestUrl.openConnection();
-		
-		urlConn.setRequestMethod("GET");
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
-		
-		String line;
-		String requestText = "";
-		
-		while((line=br.readLine()) != null) {
-			requestText += line;
-		}
 
-		br.close();
-		urlConn.disconnect();
-		
-		return requestText;
-	}
-	
-	
 	
 	
 	
