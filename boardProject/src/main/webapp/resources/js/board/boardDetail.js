@@ -36,7 +36,7 @@ boardLike.addEventListener("click", e => {
         .then(response => response.text()) // 응답 객체를 필요한 상태로 파싱하여 리턴
         .then(count => {
             console.log("count : " + count)
-            if(count == -1){
+            if (count == -1) {
                 console.log("좋아요 처리 실패");
                 return;
             }
@@ -55,15 +55,71 @@ boardLike.addEventListener("click", e => {
         }) // 예외 발생 시 처리하는 부분
 })
 
+// 로그인을 했을 경우
+if(loginMemberNo != ""){
 
-
-// 게시글 수정 버튼 클릭 시 
-document.getElementById("updateBtn").addEventListener("click", ()=>{
+    // 게시글 수정 버튼 클릭 시 
+    document.getElementById("updateBtn").addEventListener("click", () => {
     
-    location.href = location.pathname.replace("board", "board2") 
-                    + "/update" 
-                    + location.search;
+        location.href = location.pathname.replace("board", "board2")
+            + "/update"
+            + location.search;
+    
+        // /board2/1/2012/update?cp=1 (GET)
+    
+    })
+    
+    
+    // 게시글 삭제 버튼이 클릭 되었을 때
+    document.getElementById("deleteBtn").addEventListener("click", () => {
+    
+        if (confirm("정말 삭제 하시겠습니까?")) {
+            location.href
+                = location.pathname.replace("board", "board2")
+                + "/delete";
+            //   /board2/1/2006/delete (GET)
+    
+            // 삭제 서비스 호출 성공 시 redirect:/board/{boardCode}
+            // + RedirectAttributes 이용해서 "삭제 되었습니다" alert 출력
+    
+            // 삭제 서비스 호출 실패 시 redirect:/board/{boardCoed}/{boardNo}
+            // + RedirectAttributes 이용해서 "삭제 실패" alert 출력
+        }
+    })
+}
 
-                    // /board2/1/2012/update?cp=1 (GET)
 
-})
+// 목록으로
+const goToListBtn = document.getElementById("goToListBtn");
+goToListBtn.addEventListener("click", ()=>{
+    let url = "/board/" + boardCode
+
+    // URL 내장 객체 : 주소 관련 정보를 나타내는 객체
+    // URL.searchParams : 쿼리스트링만 별도 객체로 반환
+    const params = new URL(location.href).searchParams;
+
+    let cp;
+    if(params.get("cp") != ""){ // 쿼리스트링에 cp가 있을 경우
+        cp = "?cp=" + params.get("cp");
+    }else{
+        cp = "?cp=1"
+    }
+
+    // 조립
+    url += cp;
+
+    // 검색 key, query가 존재하는 경우 url에 추가
+    if(params.get("key") != null){
+        const key = "&key=" + params.get("key");
+        const query = "&query=" + params.get("query");
+
+        url += key + query; // url 뒤에 붙이기
+    }
+
+    // location.gref = "주소"; -> 해당 주소로 이동
+    location.href = url;
+});
+    
+
+
+

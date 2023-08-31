@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<h1>실시간 대기오염 정보</h1>
+<%-- 	<h1>실시간 대기오염 정보</h1>
 
 	지역 :
 	<select id="location">
@@ -100,7 +100,7 @@
 						let value;
 						itemArr.each(function(index, item){
 							//console.log(item);
-							console.log($(item).find("stationName").text())
+							//console.log($(item).find("stationName").text())
 							
 							value += "<tr>"
 								+ "<td>" + $(item).find("stationName").text() + "</td>"
@@ -126,7 +126,7 @@
 
 			})
 		})
-	</script>
+	</script> --%>
 
 	<hr>
 
@@ -156,6 +156,8 @@
 </body>
 
 	<script>
+
+	
 	$(function() {
 		$("#btn2").click(function() {
 			
@@ -181,6 +183,7 @@
 								+ "<td>" + $(item).find("shel_div_type").text() + "</td>"
 								+"</tr>"
 						})
+						
 						
 						// 3. 동적으로 만들어낸 요소를 화면에 출력
 						$("#result2 > tbody").html(value);

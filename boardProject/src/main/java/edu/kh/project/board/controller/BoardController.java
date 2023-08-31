@@ -84,16 +84,30 @@ public class BoardController {
 	@GetMapping("/{boardCode:[0-9]+}") // boardCode는 1자리 이상 숫자ㄴ
 	public String selectBoardList(@PathVariable("boardCode")int boardCode
 							, @RequestParam(value="cp", required = false, defaultValue = "1")int cp
-							, Model model) {
+							, Model model
+							, @RequestParam Map<String, Object> paramMap // 파라미터 전부 다 담겨있음
+							) {
 		
 		// boardCode 확인
 //		System.out.println("boardCode : " + boardCode);
 		
-		// 게시글 목록 조회 서비스 호출
-		Map<String, Object> map = service.selectBoardList(boardCode, cp);
+		if(paramMap.get("key") == null) { // 검색어가 없을 때(검색 X)
+			
+			// 게시글 목록 조회 서비스 호출
+			Map<String, Object> map = service.selectBoardList(boardCode, cp);
+			
+			// 조회결과를 request scope에 세팅 후 forward
+			model.addAttribute("map", map);
+			
+		}else { // 검색어가 있을 때(검색 O)
+			
+			paramMap.put("boardCode", boardCode);
+			
+			Map<String, Object> map = service.selectBoardList(paramMap, cp);
+			
+			model.addAttribute("map", map);
+		}
 		
-		// 조회결과를 request scope에 세팅 후 forward
-		model.addAttribute("map", map);
 		return "board/boardList";
 		
 	}
