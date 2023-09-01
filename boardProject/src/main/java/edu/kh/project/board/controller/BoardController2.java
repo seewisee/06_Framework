@@ -143,6 +143,7 @@ public class BoardController2 {
 		board.setBoardCode(boardCode);
 		board.setBoardNo(boardNo);
 		
+		System.out.println(deleteList + "이이이이이이이미밈미미미밈미미ㅣ지지지지지짖지지");
 		// board(boardCode, boardNo, boardTitle, boardContent)
 		
 		// 2) 이미지 서버 저장 경로, 웹 접근 경로

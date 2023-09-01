@@ -286,7 +286,7 @@
 	<!-- 이미지 삭제  -->
 	<delete id="imageDelete">
 		DELETE FROM BOARD_IMG
-		WHERE BOARD_NO = #{board_no}
+		WHERE BOARD_NO = #{boardNo}
 		AND IMG_ORDER IN (${deleteList})
 	</delete>
 	
@@ -410,6 +410,11 @@
 		</choose>
 
 		ORDER BY BOARD_NO DESC
+	</select>
+	
+	<!-- DB 이미지(파일) 목록 조회  -->
+	<select id="selectImageListAll" resultType="string">
+	SELECT IMG_RENAME FROM BOARD_IMG
 	</select>
 	
 </mapper>

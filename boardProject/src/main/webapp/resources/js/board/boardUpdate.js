@@ -68,11 +68,11 @@ for (let i = 0; i < inputImage.length; i++) {
 
 
 // 게시글 수정 시 제목, 내용 작성 여부 검사
-const boardUpateFrm = document.getElementById("boardUpateFrm");
+const boardUpdateFrm = document.getElementById("boardUpdateFrm");
 const boardTitle = document.getElementsByName("boardTitle")[0];
 const boardContent = document.getElementsByName("boardContent")[0];
 
-boardUpateFrm.addEventListener("submit", e => {
+boardUpdateFrm.addEventListener("submit", e => {
 
     if(boardTitle.value.trim().length == 0){
         alert("제목을 입력해주세요");
@@ -100,7 +100,6 @@ boardUpateFrm.addEventListener("submit", e => {
 
     document.querySelector("[name='deleteList']").value
         = Array.from(deleteSet);
-
         // e.preventDefault(); // 확인만 하고 지울 예정
         
 
