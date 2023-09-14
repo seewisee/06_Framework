@@ -24,15 +24,14 @@ public class OpenAPIController {
 	// json형식으로 대기오염 OpenAPI 활용하기
 
 	@ResponseBody
-	//@RequestMapping(value = "air", produces = "application/json; charset=UTF-8")
+	@RequestMapping(value = "air", produces = "application/json; charset=UTF-8")
 	public String airMethod(String location) throws IOException  {
 		
 		// openAPI 서버로 요청하고자 하는 url 작성
 		String url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty";
 		url += "?serviceKey=" + SERVICEKEY; // 서비스키 추가
-		url += "&sidoName=" + URLEncoder.encode(location, "UTF-8"); // 지역명 추가(한글이 들어가면 인코딩 처리 해야함)
 		url += "&returnType=json"; // 리턴 타입
-		url += "&numOfRows=2"; // 결과 개수
+		url += "&sidoName=" + URLEncoder.encode(location, "UTF-8"); // 지역명 추가(한글이 들어가면 인코딩 처리 해야함)
 		
 		// 1. 작성된 url 정보를 넣어 URL 객체 생성
 		URL requestUrl = new URL(url);
@@ -128,6 +127,9 @@ public class OpenAPIController {
 		
 		return responseText;
 	}
+	
+	
+	
 	
 
 	
